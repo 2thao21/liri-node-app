@@ -6,26 +6,26 @@
 
 * To retrieve a listing of upcoming concerts from a specific band/artist enter:
 
-node liri.js concert-this <enter in specific band/artist>
+    * node liri.js concert-this <enter in specific band/artist>
 
-![concert-this Example](images/concertThis.png)
+![concert-this Example](https://github.com/2thao21/liri-node-app/blob/master/images/movieThis.PNG)
 
 
 * To retrieve song info from your favorite track enter:
 
-node liri.js spotify-this-song <enter song>
+    * node liri.js spotify-this-song <enter song>
 
 
 
 
 * To retrieve movie info, enter:
 
-node liri.js movie-this <enter movie name>
+    * node liri.js movie-this <enter movie name>
 
 ![movie-this Example](images/movieThis.png)
 
 
 * Try entering the following command: 
 
-node liri.js do-what-it-says
+    * node liri.js do-what-it-says
 
