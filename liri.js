@@ -1,48 +1,123 @@
 require("dotenv").config();
 
-var keys = require("./keys.js");
-
-var Spotify = require('node-spotify-api');
-
+// Node packages
 var axios = require("axios");
 
 var fs = require("fs");
 
+var moment = require("moment");
+
+// Spotify keys
+var spotify = require('node-spotify-api');
+
+var keys = require("./keys.js");
+
+// var spotify = new Spotify(keys.spotify);
+
+
 var input1 = process.argv[2];
-var input2 = process.argv[3];
+var input2 = process.argv.slice(3).join(" ");
 
 function menu(){
-    switch(input1){
-        case 'concert-this':
-            bands();
-            break;
-
-        case 'spotify-this-song':
-            SpotifySong();
-            break;
-        
-        case 'movie-this':
-            movie();
-            break;
-        
-        case 'do-what-it-says':
-            doWhat();
-            break;
-
-        default:
-            console.log("type input: node liri.js: " + "\nconcert-this, " + "\nspotify-this-song, " + "\nmovie-this, " + "\ndo-what-it-says")
+    if (input1 === "concert-this"){
+        bands();
+    }
+    else if (input1 === "spotify-this-song"){
+        spotifySong();
+    }
+    else if (input1 === "movie-this"){
+        movieSearch();
+    }
+    else if (input1 === "do-what-it-says"){
+        doWhatItSays();
+    }
+    else {
+        console.log("Please enter in one of these commands: " + "\n node liri.js concert-this", "\n node liri.js spotify-this-song", "\n node liri.js movie-this", "\n node liri.js do-what-it-says");
     }
 }
 
+// creating liri.js concert-this
 function bands(){
 
-    var artist = "adele";
+var divider = "\n-----------------------------------------------------\n";
 
-    axios.get("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp")
-    .then(function(response){
-        console.log("Artist name and upcoming venue: ", artist + ", ", response.data[0].venue);
-        });
+    if (input2 === ""){
+        console.log("No artist entered. Please enter an Artist!")
     }
+    else {
+    axios.get("https://rest.bandsintown.com/artists/" + input2 + "/events?app_id=codingbootcamp")
+    .then(function(response){
+        console.log("\n");
+        console.log("Artist name : " + input2);
+        console.log("Venue Description: "+  response.data[0].venue.name);
+        console.log("Venue Location: "+  response.data[0].venue.country + ", " + response.data[0].venue.city);
+        console.log("Date of Event: " + moment(response.data[0].datetime).format("LL"));
+        });
+    }   
+};
 
-bands();
-// menu();
+
+// creating spotify-this-song
+// function spotifySong(){
+//     if(input2 === ""){
+//         input2 = "The Sign" + "Ace of Base";
+//     }
+//     else {
+//         spotify.search({ 
+//         type: 'artist, track',
+//         query: input2 }, 
+        
+//         function(err, data) {
+//         if (err) {
+//           return console.log('Error occurred: ' + err);
+//         }
+       
+//       console.log(data); 
+
+//     //   var thisData = Artist: ${data.tracks.items[0].artists[0].name}
+//       });
+//     } 
+// };
+
+
+// creating movie-this
+function movieSearch(){
+    if (!input2){
+        input2 = "Mr.Nobody"
+    }
+    else {
+        axios.get("https://www.omdbapi.com/?t=" + input2 + "&y=&plot=short&apikey=trilogy")
+        .then(function(response){
+            // console.log("The movie: " + input2 + ", " + " rating is: " + response.data.imdbRating);
+            console.log("\n");
+            console.log("Title: "+ response.data.Title);
+			console.log("Year: " + response.data.Year);
+            console.log("Rating: " + response.data.imdbRating);
+            console.log("Rotten Tomatoes URL: " + response.data.Ratings[1].Value);
+			console.log("Country of Production: " + response.data.Country);
+			console.log("Language: " + response.data.Language);
+			console.log("Plot: " + response.data.Plot);
+			console.log("Actors: " + response.data.Actors);
+			
+        })
+    }
+    
+};
+
+
+// creating do-what-it-says
+function doWhatItSays(){
+    fs.readFile("random.txt", "utf8", function(error,data){
+        if (error){
+            return console.log(error);
+        }
+        console.log(data.split(','))
+        var thisData = data.split(',');
+
+        // input2 = thisData[1];
+        // spotifySong();
+    })
+    
+};
+
+menu();
