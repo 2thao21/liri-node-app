@@ -10,7 +10,7 @@ var moment = require("moment");
 // Spotify keys
 var keys = require("./keys.js");
 
-var spotify = new Spotify(keys.spotify);
+// var spotify = new Spotify(keys.spotify);
 
 var spotify = require("node-spotify-api");
 
@@ -60,30 +60,30 @@ var divider = "\n-----------------------------------------------------\n";
 
 
 // creating spotify-this-song
-function spotifySong(){
-    if(input2 === ""){
-        input2 = "The Sign";
-    }
-    else {
-        spotify.search({ 
-        type: 'artist, track',
-        query: input2 }, 
+// function spotifySong(){
+//     if(input2 === ""){
+//         input2 = "The Sign";
+//     }
+//     else {
+//         spotify.search({ 
+//         type: 'artist, track',
+//         query: input2 }, 
         
-        function(err, data) {
-        if (err) {
-          return console.log('Error occurred: ' + err);
-        }
+//         function(err, data) {
+//         if (err) {
+//           return console.log('Error occurred: ' + err);
+//         }
        
-      console.log(data); 
+//       console.log(data); 
 
-      console.log("Artists: ", );
-      console.log("Song: ", );
-      console.log("Preview: ", );
-      console.log("Album: ", );
+//       console.log("Artists: ", );
+//       console.log("Song: ", );
+//       console.log("Preview: ", );
+//       console.log("Album: ", );
     
-      });
-    } 
-};
+//       });
+//     } 
+// };
 
 // Kept getting Spotify is not a function/defined/constructor errors...have commented out spotify section to enable code to run.
 
