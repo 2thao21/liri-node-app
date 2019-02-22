@@ -1,6 +1,6 @@
+// Node packages
 require("dotenv").config();
 
-// Node packages
 var axios = require("axios");
 
 var fs = require("fs");
@@ -8,15 +8,17 @@ var fs = require("fs");
 var moment = require("moment");
 
 // Spotify keys
-var spotify = require('node-spotify-api');
-
 var keys = require("./keys.js");
 
-// var spotify = new Spotify(keys.spotify);
+var spotify = new Spotify(keys.spotify);
+
+var spotify = require("node-spotify-api");
 
 
+// CLI inputs
 var input1 = process.argv[2];
 var input2 = process.argv.slice(3).join(" ");
+
 
 function menu(){
     if (input1 === "concert-this"){
@@ -50,7 +52,7 @@ var divider = "\n-----------------------------------------------------\n";
         console.log("\n");
         console.log("Artist name : " + input2);
         console.log("Venue Description: "+  response.data[0].venue.name);
-        console.log("Venue Location: "+  response.data[0].venue.country + ", " + response.data[0].venue.city);
+        console.log("Venue Location: "+  response.data[0].venue.city + ", " + response.data[0].venue.country);
         console.log("Date of Event: " + moment(response.data[0].datetime).format("LL"));
         });
     }   
@@ -58,26 +60,32 @@ var divider = "\n-----------------------------------------------------\n";
 
 
 // creating spotify-this-song
-// function spotifySong(){
-//     if(input2 === ""){
-//         input2 = "The Sign" + "Ace of Base";
-//     }
-//     else {
-//         spotify.search({ 
-//         type: 'artist, track',
-//         query: input2 }, 
+function spotifySong(){
+    if(input2 === ""){
+        input2 = "The Sign";
+    }
+    else {
+        spotify.search({ 
+        type: 'artist, track',
+        query: input2 }, 
         
-//         function(err, data) {
-//         if (err) {
-//           return console.log('Error occurred: ' + err);
-//         }
+        function(err, data) {
+        if (err) {
+          return console.log('Error occurred: ' + err);
+        }
        
-//       console.log(data); 
+      console.log(data); 
 
-//     //   var thisData = Artist: ${data.tracks.items[0].artists[0].name}
-//       });
-//     } 
-// };
+      console.log("Artists: ", );
+      console.log("Song: ", );
+      console.log("Preview: ", );
+      console.log("Album: ", );
+    
+      });
+    } 
+};
+
+// Kept getting Spotify is not a function/defined/constructor errors...have commented out spotify section to enable code to run.
 
 
 // creating movie-this
@@ -114,10 +122,13 @@ function doWhatItSays(){
         console.log(data.split(','))
         var thisData = data.split(',');
 
-        // input2 = thisData[1];
+        // input2 = thisData;
         // spotifySong();
     })
     
 };
 
 menu();
+
+
+// In return of Spotify not being called, do-what-it-says does not function at this current time.
