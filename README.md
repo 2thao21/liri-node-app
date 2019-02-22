@@ -8,7 +8,7 @@
 
     * node liri.js concert-this <enter in specific band/artist>
 
-![concert-this Example](https://github.com/2thao21/liri-node-app/blob/master/images/movieThis.PNG)
+![concert-this Example](https://github.com/2thao21/liri-node-app/blob/master/images/concertThis.PNG)
 
 
 * To retrieve song info from your favorite track enter:
@@ -22,10 +22,11 @@
 
     * node liri.js movie-this <enter movie name>
 
-![movie-this Example](images/movieThis.png)
+![movie-this Example](https://github.com/2thao21/liri-node-app/blob/master/images/movieThis.PNG)
 
 
 * Try entering the following command: 
 
     * node liri.js do-what-it-says
+
 
